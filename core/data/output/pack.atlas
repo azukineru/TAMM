@@ -1,0 +1,181 @@
+
+pack.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Climb
+  rotate: false
+  xy: 196, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+FirePistol
+  rotate: false
+  xy: 2, 11
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
+Whip
+  rotate: false
+  xy: 2, 156
+  size: 320, 32
+  orig: 320, 32
+  offset: 0, 0
+  index: -1
+back
+  rotate: false
+  xy: 328, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+crystal-qubodup-ccby3-16-blue
+  rotate: false
+  xy: 196, 36
+  size: 128, 16
+  orig: 128, 16
+  offset: 0, 0
+  index: -1
+crystal-qubodup-ccby3-32-blue
+  rotate: false
+  xy: 2, 122
+  size: 256, 32
+  orig: 256, 32
+  offset: 0, 0
+  index: -1
+earlysketch_col
+  rotate: false
+  xy: 362, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+eskimo_climb
+  rotate: false
+  xy: 262, 2
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+eskimo_walk
+  rotate: false
+  xy: 324, 156
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+flower-idle
+  rotate: false
+  xy: 260, 122
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+front
+  rotate: false
+  xy: 414, 88
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+front_walk1
+  rotate: false
+  xy: 414, 54
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+front_walk2
+  rotate: false
+  xy: 396, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 154, 88
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 430, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+menubox
+  rotate: false
+  xy: 2, 190
+  size: 480, 64
+  orig: 480, 64
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 454, 156
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+spider0
+  rotate: false
+  xy: 326, 36
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+spider1
+  rotate: false
+  xy: 392, 36
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+torch
+  rotate: false
+  xy: 154, 54
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+walk
+  rotate: false
+  xy: 284, 88
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+web
+  rotate: false
+  xy: 456, 122
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+zombie_climb
+  rotate: false
+  xy: 390, 122
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+zombie_walk
+  rotate: false
+  xy: 284, 54
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+zombies_and_skeletons
+  rotate: false
+  xy: 2, 45
+  size: 150, 75
+  orig: 150, 75
+  offset: 0, 0
+  index: -1

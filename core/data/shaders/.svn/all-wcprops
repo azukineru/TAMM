@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3508/trunk/tests/gdx-tests-android/assets/data/shaders
+END
+depthtocolor.frag
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/depthtocolor.frag
+END
+flattex-frag.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2350/trunk/tests/gdx-tests-android/assets/data/shaders/flattex-frag.glsl
+END
+flattex-vert.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2350/trunk/tests/gdx-tests-android/assets/data/shaders/flattex-vert.glsl
+END
+shader-vs.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3508/trunk/tests/gdx-tests-android/assets/data/shaders/shader-vs.glsl
+END
+shadowgen-frag.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2308/trunk/tests/gdx-tests-android/assets/data/shaders/shadowgen-frag.glsl
+END
+shadowgen-vert.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2345/trunk/tests/gdx-tests-android/assets/data/shaders/shadowgen-vert.glsl
+END
+convolution.frag
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/convolution.frag
+END
+batch.frag
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/batch.frag
+END
+shadowmap-frag.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2308/trunk/tests/gdx-tests-android/assets/data/shaders/shadowmap-frag.glsl
+END
+batch.vert
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/batch.vert
+END
+shadowmap-vert.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2345/trunk/tests/gdx-tests-android/assets/data/shaders/shadowmap-vert.glsl
+END
+default.frag
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/default.frag
+END
+default.vert
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2748/trunk/tests/gdx-tests-android/assets/data/shaders/default.vert
+END
+flat-frag.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2308/trunk/tests/gdx-tests-android/assets/data/shaders/flat-frag.glsl
+END
+flat-vert.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2345/trunk/tests/gdx-tests-android/assets/data/shaders/flat-vert.glsl
+END
+projtex-frag.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2329/trunk/tests/gdx-tests-android/assets/data/shaders/projtex-frag.glsl
+END
+projtex-vert.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2345/trunk/tests/gdx-tests-android/assets/data/shaders/projtex-vert.glsl
+END
+shader-fs.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3508/trunk/tests/gdx-tests-android/assets/data/shaders/shader-fs.glsl
+END

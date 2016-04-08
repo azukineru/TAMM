@@ -1,0 +1,35 @@
+for(int i=0; i<nbRooms-1; i++){
+				switch(lastDirection){
+					case NORTH: cursorY++;break;
+					case SOUTH: cursorY--;break;
+					case EAST: cursorX++;break;
+					case WEST: cursorX--;break;
+				}
+				possibleDirections.clear();
+				possibleDirections.addAll(directionList);
+				// check the available room
+				if( cursorX==0 || directions[cursorX-1][cursorY] != null){
+					possibleDirections.remove(Direction.WEST);
+				}
+				if (cursorY==7 || directions[cursorX][cursorY+1] != null) {
+					possibleDirections.remove(Direction.NORTH);
+				}
+				if (cursorY==0 || directions[cursorX][cursorY-1] != null) {
+					possibleDirections.remove(Direction.SOUTH);
+				}
+				if (cursorX==7 || directions[cursorX+1][cursorY] != null) {
+					possibleDirections.remove(Direction.EAST);
+				}
+				
+				int size = possibleDirections.size();
+				if(size==0){
+					failure = true;
+					break;
+				}
+				
+				double random = Math.random();
+				int index2 = (int)(random*size);
+				Direction newDirection = possibleDirections.get(index2);
+				directions[cursorX][cursorY] = new Orientation(lastDirection, newDirection);
+				lastDirection = newDirection;
+			}

@@ -25,9 +25,10 @@ public class MMLevelLayout implements Iterable<Room>{
 	public int endRoomY;
 	public static boolean failure;
 	public static int cursorX, cursorY;
-	public static int tempcursorX, tempcursorY;
-	public static int arrcursorX[], arrcursorY[];
+	public static int tempcursorX, tempcursorY;	
 	public static int counter;
+	public static Boolean stateSearching;
+	public static Direction tempDirectionWhenFail;
 		
 	public MMLevelLayout(int hRooms, int vRooms,
 			int roomWidthInTiles, int roomHeightInTiles,
@@ -95,15 +96,111 @@ public class MMLevelLayout implements Iterable<Room>{
 		}		
 	}
 	
+	public static class Stack{
+		public ArrayList<String> tempLastDirection;
+		
+		public Stack()
+		{
+			tempLastDirection = new ArrayList<String>(10);
+		}
+		
+		public boolean isEmpty()
+		{
+			return tempLastDirection.isEmpty();
+		}
+		
+		public String pop()
+		{
+			return tempLastDirection.remove(tempLastDirection.size()-1);
+		}
+		
+		public void push(String x)
+		{
+			tempLastDirection.add(x);
+			System.out.printf("Item %s has been pushed", x);
+			System.out.printf("Size of stack is %d\n", tempLastDirection.size());
+		}
+		
+		public String arrayTop()
+		{
+			return(tempLastDirection.get(tempLastDirection.size()-1));
+		}
+	}
+	
+	public static class StackIntX{
+		public ArrayList<Integer> tempLastCursorX;
+		
+		public StackIntX()
+		{
+			tempLastCursorX = new ArrayList<Integer>();
+		}
+		
+		public boolean isEmpty()
+		{
+			return tempLastCursorX.isEmpty();
+		}
+		
+		public Integer pop()
+		{
+			return tempLastCursorX.remove(tempLastCursorX.size()-1);
+		}
+		
+		public void push(Integer x)
+		{
+			tempLastCursorX.add(x);
+			System.out.printf("Item %d has been pushed\t", x);
+			System.out.printf("Size of stack is %d\n", tempLastCursorX.size());
+		}
+		
+		public Integer arrayTop()
+		{
+			return(tempLastCursorX.get(tempLastCursorX.size()-1));
+		}
+	}
+	
+	public static class StackIntY{
+		public ArrayList<Integer> tempLastCursorY;
+		
+		public StackIntY()
+		{
+			tempLastCursorY = new ArrayList<Integer>();
+		}
+		
+		public boolean isEmpty()
+		{
+			return tempLastCursorY.isEmpty();
+		}
+		
+		public Integer pop()
+		{
+			return tempLastCursorY.remove(tempLastCursorY.size()-1);
+		}
+		
+		public void push(Integer x)
+		{
+			tempLastCursorY.add(x);
+			System.out.printf("Item %d has been pushed\t", x);
+			System.out.printf("Size of stack is %d\n", tempLastCursorY.size());
+		}
+		
+		public Integer arrayTop()
+		{
+			return(tempLastCursorY.get(tempLastCursorY.size()-1));
+		}
+	}
+	
 	public static List<Direction> directionList = Arrays.asList(Direction.values());
 	
 	public static Orientation[][] directions = new Orientation[64][64];
 	
 	public static ArrayList<Direction> possibleDirections = new ArrayList<MMLevelLayout.Direction>(10);
 	
+	//Stack
+	public static Stack lastoDirections = new Stack();	
+	public static StackIntX lastoCursorX = new StackIntX();
+	public static StackIntY lastoCursorY = new StackIntY();
 	
 	public static boolean searchingPath(int nbRooms, int cursorX, int cursorY, Direction lastDirection){
-
 
 		if( nbRooms == 0 ){
 			failure = false;
@@ -114,6 +211,7 @@ public class MMLevelLayout implements Iterable<Room>{
 		int size, index2;
 		double random;
 		Direction newDirection;
+		
 		switch(lastDirection){
 			case NORTH:
 				cursorY++;break;
@@ -125,7 +223,7 @@ public class MMLevelLayout implements Iterable<Room>{
 				cursorX--;break;
 		}
 		
-		possibleDirections.clear();
+		possibleDirections.clear();		
 		possibleDirections.addAll(directionList);
 		if(cursorX == 30 || directions[cursorX-1][cursorY] != null){
 			possibleDirections.remove(Direction.WEST);
@@ -142,7 +240,6 @@ public class MMLevelLayout implements Iterable<Room>{
 		
 		System.out.print(lastDirection);
 		System.out.printf(". cursorX: %d, cursorY: %d when counter %d\n", cursorX, cursorY, counter);
-		
 		
 		size = possibleDirections.size();
 		if(size == 0){
@@ -162,8 +259,6 @@ public class MMLevelLayout implements Iterable<Room>{
 		return false;
 	}
 	
-	
-	
 	public static MMLevelLayout random(int nbRooms) {
 		
 		//1. Random path search
@@ -174,22 +269,46 @@ public class MMLevelLayout implements Iterable<Room>{
 
 		do{
 			counter = 1;
-			failure = false;
+			failure = false; stateSearching = true; 
 			clearDirectionGrid();
 			Direction lastDirection = Direction.EAST;
+			tempDirectionWhenFail = Direction.EAST;
+			
 			cursorX = directionGridCenter;
 			cursorY = directionGridCenter;
 			directions[directionGridCenter][directionGridCenter] = new Orientation(null, Direction.EAST);
 			
+			System.out.printf(">>>>> 1 >>");
 			System.out.print(lastDirection);
 			System.out.printf(". cursorX: %d, cursorY: %d when counter %d\n", cursorX, cursorY, counter);
 			
+			lastoDirections.push(lastDirection.toString());
+			lastoCursorX.push(cursorX); lastoCursorY.push(cursorY);
 			
 			searchingPath(nbRooms-1, cursorX, cursorY, lastDirection);
 			
 		}
 		while(failure);
 		
+		/*
+		for(int i=0; i<9; i++){
+			if(lastoDirections!=null){
+				System.out.printf("%s", lastoDirections.arrayTop());
+				
+				lastoDirections.pop();				
+			}
+			System.out.printf("\n");
+		}
+		
+		
+		for(int i=0; i<9; i++){
+			if(lastoCursorX !=null && lastoCursorY != null){
+				System.out.printf("CursorX=%d CursorY=%d", lastoCursorX.arrayTop(), lastoCursorY.arrayTop());				
+				lastoCursorX.pop(); lastoCursorY.pop();				
+			}
+			System.out.printf("\n");
+		}
+		*/
 		cursorX = tempcursorX; cursorY = tempcursorY;
 		
 		//2. Determine the bound

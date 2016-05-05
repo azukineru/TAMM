@@ -147,7 +147,7 @@ public class CollisionManager implements ContactFilter, ContactListener{
 			}
 		}
 		else if ((userDataB.collisionCategory == CollisionCategory.JACK && userDataA.collisionCategory == CollisionCategory.ENEMY)) {
-			Art.hurtSound.play();
+			//Art.hurtSound.play();
 			Jack jack = objectManager.getJack();			
 			if (!jack.isInvicible()) {
 				Vector2 positionA = bodyA.getPosition();
@@ -158,7 +158,7 @@ public class CollisionManager implements ContactFilter, ContactListener{
 			}			
 		}
 		else if ((userDataB.collisionCategory == CollisionCategory.JACK && userDataA.collisionCategory == CollisionCategory.COLLECTABLE)) {
-			Art.coinSound.play();
+			//Art.coinSound.play();
 			if (!userDataA.hidden) {
 				Jack jack = objectManager.getJack();
 				jack.onItemCollected((Collectable)objectManager.get(userDataA.id));
@@ -166,7 +166,7 @@ public class CollisionManager implements ContactFilter, ContactListener{
 			userDataA.hidden = true;
 		}
 		else if ((userDataA.collisionCategory == CollisionCategory.JACK && userDataB.collisionCategory == CollisionCategory.COLLECTABLE)) {
-			Art.coinSound.play();
+			//Art.coinSound.play();
 			if (!userDataB.hidden) {
 				Jack jack = objectManager.getJack();
 				jack.onItemCollected((Collectable)objectManager.get(userDataB.id));

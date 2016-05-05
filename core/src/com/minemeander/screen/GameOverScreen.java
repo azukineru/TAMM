@@ -18,7 +18,7 @@ SpriteBatch spriteBatch = new SpriteBatch();
 		spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		spriteBatch.begin();
 								
-		Art.bitmapFont.draw(spriteBatch, "GAME OVER", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);				
+		Art.bitmapFont.draw(spriteBatch, "GAME OVER", (Gdx.graphics.getWidth()/2)-100, Gdx.graphics.getHeight()/2);				
 		spriteBatch.end();
 		
 		super.renderCurtain();

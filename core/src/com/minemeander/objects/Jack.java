@@ -196,8 +196,9 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 			if (Constant.HAZARD_ZONE.equals(cell.getTile().getProperties().get("col"))) {	
 				GameObjectData gameObjectData = (GameObjectData)body.getUserData();
 				if (gameObjectData.flying) {
-					onHit();
+					//onHit();
 				}
+				onHit();
 			}
 			else if (CommonTile.EXIT.name().equals(cell.getTile().getProperties().get("id"))) {
 				level.onCompletion();
@@ -362,7 +363,7 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 
 	public void onHit() {
 		if (!invicible) {
-			Art.hurtSound.play();
+			//Art.hurtSound.play();
 			
 			if (mojo > 0) {				
 				mojo--;				

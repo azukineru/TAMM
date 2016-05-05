@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="world1" tilewidth="32" tileheight="32">
- <image source="tiles_world4.png" width="256" height="256"/>
+ <image source="tiles_world1.png" width="256" height="256"/>
  <tile id="0">
   <properties>
    <property name="col" value="1"/>

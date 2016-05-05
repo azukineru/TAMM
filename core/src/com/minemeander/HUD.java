@@ -28,9 +28,12 @@ public class HUD {
 			
 		}
 		
-		Art.bitmapFont.draw(spriteBatch, String.format("Score: %08d Avatar: %d", 
-			jack.getScore(), jack.getLife()),
+		Art.bitmapFont.draw(spriteBatch, String.format("SCORE: %08d", 
+			jack.getScore()),
 			20, Gdx.graphics.getHeight()-20);
+		Art.bitmapFont.draw(spriteBatch, String.format("AVATAR LIFE: %d", 
+				jack.getLife()),
+				20, Gdx.graphics.getHeight()-40);
 		spriteBatch.end();
 	}
 }

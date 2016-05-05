@@ -19,8 +19,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) throws IOException {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Mine Meander";
-		config.width = 1280;
-		config.height = 800;
+		config.width = 900;
+		config.height = 600;
 		Constant.ZOOM_FACTOR = 0.5f;
 		
 		deleteFiles();
@@ -44,7 +44,7 @@ public class DesktopLauncher {
 		TexturePacker.Settings settings = new TexturePacker.Settings();
 		settings.maxWidth = 512;
 		settings.maxHeight = 512;
-		TexturePacker.processIfModified(settings, "../core/data/input/sprites", "../core/data/output", "pack");	
+		TexturePacker.processIfModified(settings, "../core/data/input/sprites2", "../core/data/output", "pack");	
 	}
 	
 	public static void copyTiledMaps() throws IOException {

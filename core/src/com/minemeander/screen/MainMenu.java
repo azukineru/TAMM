@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,7 +28,8 @@ public class MainMenu extends AbstractScreen{
 	private SpriteBatch spriteBatch = new SpriteBatch();
 	private Stage stage = new Stage();
 	private Skin skin = new Skin();
-	
+	private Texture titleImage;
+	private Sprite sprite;
 	
 	
 	public MainMenu(){
@@ -47,6 +49,10 @@ public class MainMenu extends AbstractScreen{
 		table.setFillParent(true);
 		stage.addActor(table);
 	
+		titleImage = new Texture(Gdx.files.internal("data/Title.png"));
+		//sprite = new Sprite(titleImage, 400, 200);
+		//sprite.setPosition(10,10);
+		
 		TextButton button = new TextButton("START", skin);
 		button.addListener(new ChangeListener(){
 			@Override
@@ -100,8 +106,7 @@ public class MainMenu extends AbstractScreen{
 		// TODO Auto-generated method stub
 		spriteBatch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		spriteBatch.begin();
-		
-		//spriteBatch.draw(Art.jackBenoitLogo, (Gdx.graphics.getWidth() - Art.jackBenoitLogo.getRegionWidth()) / 2, Gdx.graphics.getHeight() - 150);
+		spriteBatch.draw(titleImage, (Gdx.graphics.getWidth() - titleImage.getWidth()) / 2 , Gdx.graphics.getHeight() - 300);		
 		spriteBatch.end();
 		
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

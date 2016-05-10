@@ -6,162 +6,155 @@ filter: Nearest,Nearest
 repeat: none
 Climb
   rotate: false
-  xy: 416, 95
+  xy: 132, 70
   size: 55, 32
   orig: 55, 32
   offset: 0, 0
   index: -1
 back
   rotate: false
-  xy: 132, 36
+  xy: 328, 122
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 crystal-qubodup-ccby3-16-blue
   rotate: false
-  xy: 284, 129
+  xy: 132, 104
   size: 128, 16
   orig: 128, 16
   offset: 0, 0
   index: -1
 crystal-qubodup-ccby3-32-blue
   rotate: false
-  xy: 2, 147
+  xy: 2, 156
   size: 256, 32
   orig: 256, 32
   offset: 0, 0
   index: -1
 earlysketch_col
   rotate: false
-  xy: 132, 2
+  xy: 68, 20
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 eskimo_climb
   rotate: false
-  xy: 284, 95
+  xy: 262, 122
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 eskimo_walk
   rotate: false
-  xy: 260, 147
+  xy: 2, 122
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 flower-idle
   rotate: false
-  xy: 2, 36
+  xy: 260, 156
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 front
   rotate: false
-  xy: 166, 45
+  xy: 189, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 front_walk1
   rotate: false
-  xy: 166, 11
+  xy: 362, 122
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 front_walk2
   rotate: false
-  xy: 200, 45
+  xy: 223, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 154, 113
+  xy: 2, 88
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 200, 11
+  xy: 396, 122
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 menubox
   rotate: false
-  xy: 2, 181
+  xy: 2, 190
   size: 480, 64
   orig: 480, 64
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 234, 45
+  xy: 257, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 spider0
   rotate: false
-  xy: 414, 129
+  xy: 2, 2
   size: 64, 16
   orig: 64, 16
   offset: 0, 0
   index: -1
 spider1
   rotate: false
-  xy: 284, 77
+  xy: 262, 104
   size: 64, 16
   orig: 64, 16
   offset: 0, 0
   index: -1
 torch
   rotate: false
-  xy: 2, 2
+  xy: 132, 122
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 walk
   rotate: false
-  xy: 390, 147
+  xy: 390, 156
   size: 120, 32
   orig: 120, 32
   offset: 0, 0
   index: -1
 web
   rotate: false
-  xy: 234, 11
+  xy: 430, 122
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 zombie_climb
   rotate: false
-  xy: 350, 95
+  xy: 2, 20
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 zombie_walk
   rotate: false
-  xy: 154, 79
+  xy: 2, 54
   size: 128, 32
   orig: 128, 32
-  offset: 0, 0
-  index: -1
-zombies_and_skeletons
-  rotate: false
-  xy: 2, 70
-  size: 150, 75
-  orig: 150, 75
   offset: 0, 0
   index: -1

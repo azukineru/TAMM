@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="16" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="level_1" tilewidth="32" tileheight="32">
+  <image source="../tiles.png" width="512" height="512"/>
+  <tile id="4">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="ladder" value="1"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="ladder" value="1"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="spawn" value="Flower"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="spawn" value="Spider"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="spawn" value="Zombie"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="col" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="parrallax_layer" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJx1lOtRAzEMhPXT7uDcBtAArwJ4FUASCuBVABAKAB8FQC59sp54hz2h/PjmfLP2WpYlj2Y2gVG+tbOR/1GojtHNbwwg9W91/o0CsszhvKn7qF/qFBkP/X9w0DPLHF2zkXFy67J4RvFFexfRuOcBOARHQVxez6Ilm8fSOAYn4BScgXOXi0jXc9OPcV6AS3AFrsFN10ika4zMC31vwQIswQrcyX77dPXguel/Dx7AI3gCzy63kR75cPwCXsEbWIN3m9dIpCeb34f6foBP+6vpLzlP2aNrPphD3tE3+LFdXbba39q8FqlX0bUfivNkjZOoN7SntTa01vWOtM81F1yj/T3IOt9X6se3YCs6zzJ1qv3vO62b7Dxz9yvOV98x3aet+wVOdE9y
+  </data>
+ </layer>
+ <layer name="platforms_layer" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJwTZ2BgEMeBVfHI4VKDD6gSkCdWDbFqVWlkHhsQs1NonioDdvex4jEfl1oQJjYOkPWK47BnFJAP8MWfKJXtQk4PokiYHCCKZh6u9EmKWapY+KokuBHmH3S9qliwKBFYDAsGAP8wCSA=
+  </data>
+ </layer>
+ <layer name="interaction_layer" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgxEIUtk8ISrbg8s8XOIjyTx6xd2oeZQDAEyCAR4=
+  </data>
+ </layer>
+ <layer name="sprite_layer" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg8QHgQm21GFVcwMKgToUYRixjM/W5UcscogAAlBtqEKbY4xAbItZuW6UCZAr1DLX0CALMnAnw=
+  </data>
+ </layer>
+</map>

@@ -24,7 +24,6 @@ import com.minemeander.Constant;
 
 public class MainMenu extends AbstractScreen{
 
-	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch = new SpriteBatch();
 	private Stage stage = new Stage();
 	private Skin skin = new Skin();
@@ -50,8 +49,6 @@ public class MainMenu extends AbstractScreen{
 		stage.addActor(table);
 	
 		titleImage = new Texture(Gdx.files.internal("data/Title.png"));
-		//sprite = new Sprite(titleImage, 400, 200);
-		//sprite.setPosition(10,10);
 		
 		TextButton button = new TextButton("START", skin);
 		button.addListener(new ChangeListener(){
@@ -63,7 +60,7 @@ public class MainMenu extends AbstractScreen{
 						app.loginGPGS();
 					}
 				}
-				fadeOut();
+				MainMenu.this.transitionTo(new LevelSelectScreen());
 			}
 		});
 		table.add(button).pad(20);
@@ -81,13 +78,6 @@ public class MainMenu extends AbstractScreen{
 		
 		table.layout();
 
-		int viewPortWidthInMeters = (int) ((Gdx.graphics.getWidth() / 32) * Constant.METERS_PER_TILE);
-		int viewPortHeightInMeters = (int) ((Gdx.graphics.getHeight() / 32) * Constant.METERS_PER_TILE);
-
-		camera = new OrthographicCamera(viewPortWidthInMeters, viewPortHeightInMeters);
-		camera.position.x = viewPortWidthInMeters / 2;
-		camera.position.y = viewPortHeightInMeters / 2;
-		camera.update();
 		
 		Gdx.input.setInputProcessor(stage);
 		
@@ -95,11 +85,6 @@ public class MainMenu extends AbstractScreen{
 		
 	}
 	
-	@Override
-	protected void onFadeOutTermination() {
-		Jack.life = 3;
-		MainMenu.this.transitionTo(new LevelScreen(1));
-	}
 	
 	@Override
 	public void render(float delta) {

@@ -315,43 +315,43 @@ public class MMLevelLayout implements Iterable<Room>{
 					
 		possibleDirections.clear();		
 		possibleDirections.addAll(directionList);
-		if(cursorX == 30 || directions[cursorX-1][cursorY] != null){
+		if(cursorX == 29 || directions[cursorX-1][cursorY] != null){
 			System.out.printf("PossibleDirection.WEST is not available.");
 			possibleDirections.remove(Direction.WEST);
 		}
-		if(cursorY == 35 || directions[cursorX][cursorY+1] != null){
+		if(cursorY == 36 || directions[cursorX][cursorY+1] != null){
 			System.out.printf("PossibleDirection.NORTH is not available.");
 			possibleDirections.remove(Direction.NORTH);
 		}
-		if(cursorY == 30 || directions[cursorX][cursorY-1] != null){
+		if(cursorY == 29 || directions[cursorX][cursorY-1] != null){
 			System.out.printf("PossibleDirection.SOUTH is not available.");
 			possibleDirections.remove(Direction.SOUTH);
 		}
-		if(cursorX == 35 || directions[cursorX+1][cursorY] != null){
+		if(cursorX == 36 || directions[cursorX+1][cursorY] != null){
 			System.out.printf("PossibleDirection.EAST is not available.");
 			possibleDirections.remove(Direction.EAST);
 		}
 		
-		if(stateSearching == false)
+		if(stateSearching == false && lastDirection == null)
 		{
 			if(tempDirectionWhenFail == Direction.EAST)	
 			{
-				System.out.printf("PossibleDirection.EAST is not available.");
+				System.out.printf("PossibleDirection.EAST 2 is not available.");
 				possibleDirections.remove(Direction.EAST);
 			}
 			if(tempDirectionWhenFail == Direction.WEST)	
 			{
-				System.out.printf("PossibleDirection.WEST is not available.");
+				System.out.printf("PossibleDirection.WEST 2 is not available.");
 				possibleDirections.remove(Direction.WEST);
 			}
 			if(tempDirectionWhenFail == Direction.NORTH)	
 			{
-				System.out.printf("PossibleDirection.NORTH is not available.");
+				System.out.printf("PossibleDirection.NORTH 2 is not available.");
 				possibleDirections.remove(Direction.NORTH);
 			}
 			if(tempDirectionWhenFail == Direction.SOUTH)	
 			{
-				System.out.printf("PossibleDirection.SOUTH is not available.");
+				System.out.printf("PossibleDirection.SOUTH 2 is not available.");
 				possibleDirections.remove(Direction.SOUTH);
 			}
 		}
@@ -378,7 +378,7 @@ public class MMLevelLayout implements Iterable<Room>{
 			Direction topDirection = Direction.valueOf(stringDirection);
 			cursorX = lastoCursorX.arrayTop(); cursorY = lastoCursorY.arrayTop();	
 			
-			//Check around here
+			//Check around
 			possibleDirections.clear();		
 			possibleDirections.addAll(directionList);
 			if(directions[cursorX-1][cursorY] != null || tempDirectionWhenFail == Direction.WEST)
@@ -397,16 +397,27 @@ public class MMLevelLayout implements Iterable<Room>{
 			
 			System.out.printf("\n>>>>> FAIL >>");
 			System.out.print(topDirection);
-			System.out.printf(". cursorX: %d, cursorY: %d .", cursorX, cursorY);
+			System.out.printf(". cursorX: %d, cursorY: %d .\n", cursorX, cursorY);
 			
 			if( size == 0 )
 			{
+				System.out.println("Null. Backtrack again.\n");
 				searchingPath2(nbRooms, cursorX, cursorY, null);
 			}
 			else
 			{
 				//random
-				searchingPath2(nbRooms, cursorX, cursorY, topDirection);
+				System.out.println("Not null. Searching another direction.\n");
+				random = Math.random();
+				index2 = (int)(random*size);
+				lastDirection = possibleDirections.get(index2);
+				directions[cursorX][cursorY] = new Orientation(topDirection, lastDirection);
+				
+				System.out.printf("This is directions[%d][%d] ", cursorX, cursorY);
+				System.out.print(directions[cursorX][cursorY]);
+				System.out.printf("\n\n");
+				
+				searchingPath2(nbRooms, cursorX, cursorY, lastDirection);
 			}
 			
 			//failure = true;
@@ -419,7 +430,7 @@ public class MMLevelLayout implements Iterable<Room>{
 		System.out.printf(". cursorX: %d, cursorY: %d .\n", cursorX, cursorY);
 		
 		if( lastDirection != null){
-			//Push and store the direction
+			//Push and store the direction			
 			lastoDirections.push(lastDirection.toString());
 			lastoCursorX.push(cursorX); lastoCursorY.push(cursorY);
 		}
@@ -428,16 +439,8 @@ public class MMLevelLayout implements Iterable<Room>{
 		random = Math.random();
 		index2 = (int)(random*size);
 		newDirection = possibleDirections.get(index2);
-		if( lastDirection == null)
-		{
-			stringDirection = lastoDirections.arrayTop();
-			Direction topDirection = Direction.valueOf(stringDirection);
-			directions[cursorX][cursorY] = new Orientation(topDirection, newDirection);
-		}
-		else
-		{
-			directions[cursorX][cursorY] = new Orientation(lastDirection, newDirection);
-		}
+		directions[cursorX][cursorY] = new Orientation(lastDirection, newDirection);
+
 		
 		System.out.printf("This is directions[%d][%d] ", cursorX, cursorY);
 		System.out.print(directions[cursorX][cursorY]);
@@ -446,7 +449,7 @@ public class MMLevelLayout implements Iterable<Room>{
 		lastDirection = newDirection;
 
 		counter++; stateSearching = true;
-		searchingPath(nbRooms-1, cursorX, cursorY, lastDirection);
+		searchingPath2(nbRooms-1, cursorX, cursorY, lastDirection);
 		
 		return;
 	}

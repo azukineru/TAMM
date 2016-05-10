@@ -108,7 +108,18 @@ public class LevelObjectManager {
 					add(new Spider(idGenerator++, level, xPosition, yPosition));
 					break;
 				}
-
+				case ZOMBIE: {
+					xPosition = x*METERS_PER_TILE+1;
+					yPosition = y*METERS_PER_TILE+1;
+					add(new Zombie(idGenerator++, level, xPosition, yPosition));
+					break;
+				}
+				case ESKIMO: {
+					xPosition = x*METERS_PER_TILE+1;
+					yPosition = y*METERS_PER_TILE+1;
+					add(new Eskimo(idGenerator++, level, xPosition, yPosition));
+					break;
+				}
 				case FLOWER: {
 					xPosition = x*METERS_PER_TILE+1;
 					yPosition = y*METERS_PER_TILE+1;

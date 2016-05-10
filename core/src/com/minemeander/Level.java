@@ -21,7 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-//import com.minemeander.engine.ai.PathingTool;
+import com.minemeander.ai.PathingTool;
 import com.minemeander.engine.tiles.MMLevelLayout;
 import com.minemeander.objects.GameObjectData;
 import com.minemeander.objects.LevelObjectManager;
@@ -32,7 +32,7 @@ import com.minemeander.screen.LevelScreen;
 
 public class Level {
 	
-	public static final int NUMBER_OF_WORLDS = 2;
+	public static final int NUMBER_OF_WORLDS = 6;
 	
 	public OrthogonalTiledMapRenderer tiledMapRenderer;
 	public TiledMap tiledMap;
@@ -42,11 +42,12 @@ public class Level {
 	public World physicalWorld;
 	
 	public LevelObjectManager objectManager;
-	//public PathingTool pathingTool;
+	public PathingTool pathingTool;
 	public LevelCamera camera;
 	public Vector2 gravityVector = new Vector2(0f, -300f);
 	public LevelScreen screen;
 	public int worldId;
+	public int numRooms;
 
 	public Level(LevelScreen levelScreen, int worldId) {
 		super();
@@ -59,7 +60,17 @@ public class Level {
 		this.physicalWorld = new World(gravityVector, true);
 		this.objectManager = new LevelObjectManager(this);
 
-		MMLevelLayout mmLevelLayout = MMLevelLayout.random(10);
+		if( worldId == 1)
+		{
+			System.out.printf("Creating world %d. 4 rooms.\n", worldId);
+			numRooms = 4;
+		}
+		else
+		{
+			System.out.printf("Creating world %d. 6 rooms.", worldId);
+			numRooms = 6;
+		}
+		MMLevelLayout mmLevelLayout = MMLevelLayout.random(numRooms);
 		
 		Parameters params = new Parameters();
 		params.textureMagFilter = TextureFilter.Nearest;
@@ -68,7 +79,7 @@ public class Level {
 			
 		tiledMap = ProceduralLevelGenerator.generateMap(masterMap, mmLevelLayout, worldId);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 2f/32f);
-		//pathingTool = new PathingTool((TiledMapTileLayer) tiledMap.getLayers().get(BACKGROUND_LAYERS[0]), (TiledMapTileLayer) tiledMap.getLayers().get(BACKGROUND_LAYERS[1]));
+		pathingTool = new PathingTool((TiledMapTileLayer) tiledMap.getLayers().get(BACKGROUND_LAYERS[0]), (TiledMapTileLayer) tiledMap.getLayers().get(BACKGROUND_LAYERS[1]));
 
 		createPhysicsWorld();
 
@@ -223,7 +234,7 @@ public class Level {
 
 	public void onCompletion() {
 		int nextWorld = worldId+1;
-		if(nextWorld != 2){
+		if(nextWorld != 6){
 			screen.transitionTo(new LevelScreen(worldId+1));
 		}
 		else{
@@ -232,14 +243,14 @@ public class Level {
 	}
 
 	public float getPlatformDamping() {
-		if (worldId % Level.NUMBER_OF_WORLDS == 2) {
+		if (worldId == 2) {
 			return 0.01f;
 		}
 		return 8f;
 	}
 	
 	public float getJackFriction() {
-		if (worldId % Level.NUMBER_OF_WORLDS == 2) {
+		if (worldId == 2) {
 			return 0.02f;
 		}
 		return 0f;

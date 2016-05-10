@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import com.minemeander.Constant;
 import com.minemeander.Level;
-//import com.minemeander.engine.ai.PathNode;
+import com.minemeander.ai.PathNode;
 
 public abstract class GameObject {
 	public static final int NO_LADDER = 0;
@@ -179,16 +179,16 @@ public abstract class GameObject {
 		int tileY = (int) (position.y/Constant.METERS_PER_TILE);		
 		return getTileVector.set(tileX, tileY);		
 	}
-	/*
+	
 	public Vector2 findWayPointTile(ArrayList<PathNode> wayPointContainer, Vector2 targetPosition) {					
 		return level.pathingTool.findWayPointTile(wayPointContainer, getTile(), targetPosition);
 	}
 	
 	public Vector2 findRandomWayPointTile(ArrayList<PathNode> wayPointContainer, int steps) {					
-		Vector2 wayPointTile = level.pathingTool.findRandomWayPointTile(wayPointContainer, getTile(), steps);		
+		Vector2 wayPointTile = level.pathingTool.findRandomWayPointTile(wayPointContainer, getTile(), steps);
 		return wayPointTile;
 	}
-	*/
+	
 	
 	@Override
 	public String toString() {	

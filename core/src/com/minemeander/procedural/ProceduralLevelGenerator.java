@@ -129,14 +129,11 @@ public class ProceduralLevelGenerator {
 					spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
 				}
 				else if (random == 1) {
-					if( worldId % Level.NUMBER_OF_WORLDS >= 2 )
-					{
-						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
-						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
-					}
+					ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
 				}
 				else {
-					if (/*worldId % Level.NUMBER_OF_WORLDS == 1 ||*/ worldId % Level.NUMBER_OF_WORLDS == 3) {
+					if (worldId % Level.NUMBER_OF_WORLDS == 1 || worldId % Level.NUMBER_OF_WORLDS == 3) {
 						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
 					}
 					else if (worldId % Level.NUMBER_OF_WORLDS == 2) {

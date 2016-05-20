@@ -60,16 +60,22 @@ public class Level {
 		this.physicalWorld = new World(gravityVector, true);
 		this.objectManager = new LevelObjectManager(this);
 
-		if( worldId == 1)
+		if( worldId == 1 || worldId == 2)
 		{
 			System.out.printf("Creating world %d. 4 rooms.\n", worldId);
 			numRooms = 4;
+		}
+		else if(worldId == 3 || worldId == 4)
+		{
+			System.out.printf("Creating world %d. 5 rooms.", worldId);
+			numRooms = 5;
 		}
 		else
 		{
 			System.out.printf("Creating world %d. 6 rooms.", worldId);
 			numRooms = 6;
 		}
+		
 		MMLevelLayout mmLevelLayout = MMLevelLayout.random(numRooms);
 		
 		Parameters params = new Parameters();

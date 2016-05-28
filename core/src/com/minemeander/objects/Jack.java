@@ -11,18 +11,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.minemeander.engine.ActionResolver;
 import com.minemeander.engine.tiles.CommonTile;
 import com.minemeander.screen.GameOverScreen;
+import com.minemeander.screen.LevelScreen;
+import com.minemeander.screen.LevelSelectScreen;
 import com.minemeander.Art;
 import com.minemeander.Constant;
+import com.minemeander.Controller;
 import com.minemeander.Level;
 
 public class Jack extends GameObject implements Climber, InputProcessor{
 	public static float WALK_POWER = 3;
 	public static float JUMP_POWER = 700;
-	public static float CLIMB_POWER = 200;
+	public static float CLIMB_POWER = 60;
 
 	public JackStateEnum state = JackStateEnum.IDLE;
 	public JackStateEnum lastState = null;
@@ -42,13 +45,14 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 	public boolean wasDraggingDown = false;
 	public Vector2 forceVector = new Vector2();
 	public boolean wasClimbing = false;	
-		
+	
+	public static int counter=0, counter2=0;
 			
 	public Jack(int id, Level level, float x, float y) {
 		super(id, level, x, y, CollisionCategory.JACK, false);
 		body.setBullet(true);			
 		antiGravityVector = level.gravityVector.cpy().scl(-body.getMass()).scl(0.9f);
-							
+
 		Gdx.input.setInputProcessor(this);		
 	}
 
@@ -121,6 +125,8 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 		}			
 		float goRight = getRightThrust();
 		float goLeft = getLeftThrust();
+		float goUp = goUp();
+		float goDown = goDown();
 						
 		if (lastLadderStatus == GameObject.NO_LADDER && 
 				(ladderStatus == GameObject.LADDER || ladderStatus == GameObject.LADDER + GameObject.LADDER_BELOW)) {
@@ -196,9 +202,9 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 			if (Constant.HAZARD_ZONE.equals(cell.getTile().getProperties().get("col"))) {	
 				GameObjectData gameObjectData = (GameObjectData)body.getUserData();
 				if (gameObjectData.flying) {
-					//onHit();
+					onHit();
 				}
-				onHit();
+				//onHit();
 			}
 			else if (CommonTile.EXIT.name().equals(cell.getTile().getProperties().get("id"))) {
 				level.onCompletion();
@@ -219,28 +225,49 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 		}
 	}
 
-	private float goUp() {
-		if(Gdx.input.isKeyPressed(Input.Keys.Z)) {
+	public float goUp() {
+		/*if(Gdx.input.isKeyJustPressed(Input.Keys.W)){*/
+		if(Gdx.input.isKeyJustPressed(Input.Keys.W) || LevelScreen.controller.isUpPressed()) {
+			System.out.printf("goUp. Pressed up button\n");	
+			jump();
+			
 			return 10f;
 		}
 		else {
 			float accelerometerX = Gdx.input.getAccelerometerX();
-			return accelerometerX < 0f ? 10f : 0f; 
+			return accelerometerX < 0f ? 10f : 0f;
+			//return 0f;
 		}
 	}
 
-	private float getLeftThrust() {
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-			return WALK_POWER;
+	public float goDown() {
+		/*if(Gdx.input.isKeyJustPressed(Input.Keys.S)){*/
+		if(Gdx.input.isKeyPressed(Input.Keys.S) || LevelScreen.controller.isDownPressed()) {
+			System.out.printf("goDown. Pressed up button\n");
+			wasDraggingDown = true;
+			return 10f;
 		}
+		else {
+			float accelerometerX = Gdx.input.getAccelerometerX();
+			return accelerometerX > 0f ? 10f : 0f;
+			//return 0f;
+		}			
+	}
+	
+	public float getLeftThrust() {
+		/*if(Gdx.input.isKeyPressed(Input.Keys.A)) {*/
+		if(Gdx.input.isKeyPressed(Input.Keys.A) || LevelScreen.controller.isLeftPressed()){
+			return WALK_POWER;
+		}		
 		else {
 			float accelerometerY = Gdx.input.getAccelerometerY();
 			return accelerometerY < -0.2f ? Math.min(-accelerometerY*WALK_POWER*2, WALK_POWER) : 0f;  			
-		}		
+		}	
 	}
 
 	public float getRightThrust() {
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+		/*if(Gdx.input.isKeyJustPressed(Input.Keys.D)){*/
+		if(Gdx.input.isKeyPressed(Input.Keys.D) || LevelScreen.controller.isRightPressed()) {
 			return WALK_POWER;
 		}
 		else {
@@ -248,21 +275,12 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 			return accelerometerY > 0.2f ? Math.min(accelerometerY*WALK_POWER*2, WALK_POWER) : 0f;  			
 		}
 	}
-	
+		
 	@Override
 	public boolean isClimbing() {
 		return state == JackStateEnum.CLIMBING_DOWN || state == JackStateEnum.CLIMBING_IDLE || state == JackStateEnum.CLIMBING_UP;
 	}
-	
-	public float goDown() {
-		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-			return 10f;
-		}
-		else {
-			float accelerometerX = Gdx.input.getAccelerometerX();
-			return accelerometerX > 0f ? 10f : 0f;  			
-		}			
-	}
+
 
 
 	public JackStateEnum getState() {
@@ -291,7 +309,8 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 				body.applyLinearImpulse(jumpVector.set(0f, JUMP_POWER), FORCE_APPLICATION_POINT, true);
 				//Art.jumpSound.play();
 			}			
-		}		
+		}
+		wasDraggingDown = false;
 	}
 		
 	
@@ -321,13 +340,19 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 	}
 		 	
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {	
+		System.out.printf("%d %d %d %d\n",screenX, screenY, pointer, button);
 		if (screenX < Gdx.graphics.getWidth() / 2) {			
+			System.out.printf("1_touchDown. %d\n", counter2);
 			wasDraggingDown = true;
+			counter2++;
 		}
 		else {
+			System.out.printf("2_touchDown. %d\n", counter2);
+			counter2++;
 			jump();
 		}
+
 		return true;
 	}
 	
@@ -339,7 +364,11 @@ public class Jack extends GameObject implements Climber, InputProcessor{
 	
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		System.out.printf("%d %d %d %d\n",screenX, screenY, pointer, button);
+		System.out.printf("touchUp. %d\n", counter);
+		counter++;
 		wasDraggingDown = false;
+
 		return true;
 	}
 

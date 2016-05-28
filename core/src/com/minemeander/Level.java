@@ -24,6 +24,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.minemeander.ai.PathingTool;
 import com.minemeander.engine.tiles.MMLevelLayout;
 import com.minemeander.objects.GameObjectData;
+import com.minemeander.objects.Jack;
 import com.minemeander.objects.LevelObjectManager;
 import com.minemeander.objects.CollisionCategory;
 import com.minemeander.procedural.ProceduralLevelGenerator;
@@ -32,7 +33,7 @@ import com.minemeander.screen.LevelScreen;
 
 public class Level {
 	
-	public static final int NUMBER_OF_WORLDS = 6;
+	public static final int NUMBER_OF_WORLDS = 16;
 	
 	public OrthogonalTiledMapRenderer tiledMapRenderer;
 	public TiledMap tiledMap;
@@ -48,6 +49,8 @@ public class Level {
 	public LevelScreen screen;
 	public int worldId;
 	public int numRooms;
+	
+	public Controller controller;
 
 	public Level(LevelScreen levelScreen, int worldId) {
 		super();
@@ -67,13 +70,48 @@ public class Level {
 		}
 		else if(worldId == 3 || worldId == 4)
 		{
-			System.out.printf("Creating world %d. 5 rooms.", worldId);
+			System.out.printf("Creating world %d. 5 rooms.\n", worldId);
 			numRooms = 5;
+		}
+		else if(worldId == 5)
+		{
+			System.out.printf("Creating world %d. 6 rooms.\n", worldId);
+			numRooms = 6;
+		}
+		else if(worldId == 6 || worldId == 7)
+		{
+			System.out.printf("Creating world %d. 7 rooms.\n", worldId);
+			numRooms = 7;
+		}
+		else if(worldId == 8 || worldId == 9)
+		{
+			System.out.printf("Creating world %d. 8 rooms.\n", worldId);
+			numRooms = 8;
+		}
+		else if(worldId == 10 || worldId == 11)
+		{
+			System.out.printf("Creating world %d. 9 rooms.\n", worldId);
+			numRooms = 9;
+		}
+		else if(worldId == 12)
+		{
+			System.out.printf("Creating world %d. 10 rooms.\n", worldId);
+			numRooms = 10;
+		}
+		else if(worldId == 13 || worldId == 14)
+		{
+			System.out.printf("Creating world %d. 11 rooms.\n", worldId);
+			numRooms = 11;
+		}
+		else if(worldId == 15)
+		{
+			System.out.printf("Creating world %d. 12 rooms.\n", worldId);
+			numRooms = 12;
 		}
 		else
 		{
-			System.out.printf("Creating world %d. 6 rooms.", worldId);
-			numRooms = 6;
+			System.out.printf("None.\n");
+			numRooms = 1;
 		}
 		
 		MMLevelLayout mmLevelLayout = MMLevelLayout.random(numRooms);
@@ -92,7 +130,7 @@ public class Level {
 		objectManager.populateLevel();
 
 		Vector2 position = objectManager.getJack().body.getPosition();
-		camera = new LevelCamera(this, position.x, position.y);
+		camera = new LevelCamera(this, position.x, position.y);		
 	}
 	
 	public void reset() {
@@ -191,7 +229,7 @@ public class Level {
 	public int viewPortWidthInMeters;
 	public int viewPortHeightInMeters;
 
-	public HUD hud = new HUD();
+	public HUD hud = new HUD();	
 	
 	private void createRect(int startTileX, int startTileY, int endTileX, int endTileY) {
 		rectNumber++;
@@ -240,7 +278,7 @@ public class Level {
 
 	public void onCompletion() {
 		int nextWorld = worldId+1;
-		if(nextWorld != 6){
+		if(nextWorld != 11){
 			screen.transitionTo(new LevelScreen(worldId+1));
 		}
 		else{
@@ -249,16 +287,18 @@ public class Level {
 	}
 
 	public float getPlatformDamping() {
+		/*
 		if (worldId == 2) {
 			return 0.01f;
-		}
+		}*/
 		return 8f;
 	}
 	
 	public float getJackFriction() {
+		/*
 		if (worldId == 2) {
 			return 0.02f;
-		}
+		}*/
 		return 0f;
 	}
 	

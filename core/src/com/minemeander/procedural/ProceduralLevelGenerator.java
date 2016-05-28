@@ -33,6 +33,8 @@ public class ProceduralLevelGenerator {
 	
 	private int roomHeight;
 	private int roomWidth;
+	private static int roomNum = 1;
+	private static int flowerNum = 0, spiderNum = 0, zombieNum = 0; 
 	private Random rng;
 	
 	private int[][] groundAltitudes;
@@ -87,8 +89,10 @@ public class ProceduralLevelGenerator {
 			createRandomLadders(room.id, room.offsetX, room.offsetY);
 		}
 		
-		createEnvironmentalHazard(room);
 		createSprites(room.id);
+		createEnvironmentalHazard(room);
+		System.out.printf("Total flower= %d, spider= %d, zombie= %d\n", flowerNum, spiderNum, zombieNum);
+		
 	}
 	
 	private void createEnvironmentalHazard(Room room) {
@@ -111,12 +115,1179 @@ public class ProceduralLevelGenerator {
 		}
 	}
 	
-	private void createSprites(int roomIndex) {
+	private void leveldesignWorld1(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}	
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}			
+				
+				if ( findStatus == true ) {
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					System.out.printf("\tPutting flower\n");
+					spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+				}
+			}
+		}	
+		roomNum++;
+	}
+	
+	private void leveldesignWorld2(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}			
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( roomNum % 2 != 0 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( roomNum % 2 == 0)
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+
+		roomNum++;
+	}
+	
+	private void leveldesignWorld3(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+				
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( roomNum % 2 != 0 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( roomNum % 2 == 0)
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+				}			
+			}
+		}
+
+		roomNum++;
+	}
+
+	private void leveldesignWorld4(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}		
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( roomNum % 2 == 0 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( roomNum % 2 != 0)
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+
+		roomNum++;
+	}
+	
+	private void leveldesignWorld5(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+			
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( roomNum % 2 != 0 && roomNum != 6 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( roomNum % 2 == 0 && roomNum != 6 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					else if( roomNum == 6 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+					}
+				}			
+			}
+		}
+		
+
+		roomNum++;
+	}
+
+	private void leveldesignWorld6(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}			
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( roomNum % 2 != 0 && roomNum != 7 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( roomNum % 2 == 0 && roomNum != 6 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					else if( roomNum == 6 || roomNum == 7 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}			
+			}
+		}
+		
+
+		roomNum++;
+	}
+	
+	private void leveldesignWorld7(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 2;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else
+				{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}				
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i % 2 != 0 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( i % 2 == 0 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( roomNum == 6 || roomNum == 7 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}			
+			}
+		}
+
+		roomNum++;
+	}
+
+	private void leveldesignWorld8(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}				
+				
+				if ( findStatus == true ) 
+				{
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i != 2 && (roomNum == 6 || roomNum == 8) )
+					{
+						System.out.printf("\tPutting zombie\n");
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}
+			}
+		}	
+		roomNum++;
+	}
+	
+	private void leveldesignWorld9(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i != 2 && (roomNum == 1 || roomNum == 4 || roomNum == 7) )
+					{
+						System.out.printf("\tPutting zombie\n");
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}				
+			}
+		}
+		
+
+		roomNum++;
+	}
+	
+	private void leveldesignWorld10(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i != 2 && (roomNum == 1 || roomNum == 4 || roomNum == 7) )
+					{
+						System.out.printf("\tPutting zombie\n");
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld11(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						flowerNum++;
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						spiderNum++;
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i == 2 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						zombieNum++;
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld12(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						flowerNum++;
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						spiderNum++;
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i == 2 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						zombieNum++;
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld13(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						flowerNum++;
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						spiderNum++;
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+					if( i == 2 )
+					{
+						System.out.printf("\tPutting zombie\n");
+						zombieNum++;
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld14(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						flowerNum++;
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{			
+						System.out.printf("\tPutting zombie\n");
+						zombieNum++;
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						spiderNum++;
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld15(int roomIndex)
+	{
+		List<Platform> platformList = generatedPlatforms[roomIndex];		
+		if (platformList == null) {
+			return;
+		}		
+		
+		int obstacle = 3;
+		int loop = 1;
+		boolean findStatus;
+		
+		// Collectables
+		for(Platform platform : platformList) {
+			if (rng.nextDouble() > 0.5d) {
+				for (int jewelIndex = 0; jewelIndex < platform.length; jewelIndex++) {
+					if (!blockAt(platform.x+jewelIndex, platform.y+1) && rng.nextDouble() > 0.6) {
+						spriteLayer.setCell(platform.x+jewelIndex, platform.y+1, CommonTile.BLUE_JEWEL.toCell(commonTileSet));
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < obstacle; i++) {
+			findStatus = false;
+			while( findStatus == false )
+			{
+				System.out.printf("This is loop %d, Room index %d\n", loop, roomNum);
+				loop++;
+				Platform platform = platformList.get(rng.nextInt(platformList.size()));
+				System.out.printf("\tPlatform length is = %d\n", platform.length);
+				
+				int randomPlacement = 0;
+								
+				if(platform.length <= 1)
+				{
+					findStatus = false;
+				}
+				else{
+					randomPlacement = rng.nextInt(platform.length);			
+					if(!blockAt(platform.x+randomPlacement, platform.y+1))
+					{					
+						findStatus = true;	
+					}
+					else
+					{
+						findStatus = false;
+					}
+				}
+						
+				if ( findStatus == true ) 
+				{				
+					System.out.printf("\tRandom placement at = %d\n", randomPlacement);
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting flower\n");
+						flowerNum++;
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));					
+					}
+					else if( i == 2 )
+					{				
+						System.out.printf("\tPutting zombie\n");
+						zombieNum++;
+						if(!blockAt(platform.x+randomPlacement+1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement+1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+						else if(!blockAt(platform.x+randomPlacement-1, platform.y+1)){
+							spriteLayer.setCell(platform.x+randomPlacement-1, platform.y+1, CommonTile.ZOMBIE.toCell(commonTileSet));
+						}
+					}
+					if( i != 2 )
+					{
+						System.out.printf("\tPutting spider\n");
+						spiderNum++;
+						ladderLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+						spriteLayer.setCell(platform.x+randomPlacement, platform.y, CommonTile.SPIDER.toCell(commonTileSet));
+					}
+				}				
+			}
+		}
+		roomNum++;
+	}
+	
+	private void leveldesignWorld16(int roomIndex)
+	{
 		List<Platform> platformList = generatedPlatforms[roomIndex];		
 		if (platformList == null) {
 			return;
 		}
 		//int zombies = rng.nextInt(5);
+		
+		
 		int zombies = 5;
 		int loop = 1;
 		for (int i = 0; i < zombies; i++) {
@@ -144,7 +1315,6 @@ public class ProceduralLevelGenerator {
 			//if ( !blockAt(platform.x+randomPlacement, platform.y+1) ) {
 			if ( findStatus == true ) {
 				int random = rng.nextInt(3);
-				System.out.printf("\tRandom output = %d\n", random);
 				if (random == 0) {
 					System.out.printf("\tPutting flower\n");
 					spriteLayer.setCell(platform.x+randomPlacement, platform.y+1, CommonTile.FLOWER.toCell(commonTileSet));
@@ -175,6 +1345,73 @@ public class ProceduralLevelGenerator {
 					}
 				}
 			}
+		}
+	}
+	
+	private void createSprites(int roomIndex) {
+		if(worldId == 1)
+		{
+			leveldesignWorld1(roomIndex);
+		}
+		else if(worldId == 2)
+		{
+			leveldesignWorld2(roomIndex);
+		}
+		else if(worldId == 3)
+		{
+			leveldesignWorld3(roomIndex);
+		}
+		else if(worldId == 4)
+		{
+			leveldesignWorld4(roomIndex);
+		}
+		else if(worldId == 5)
+		{
+			leveldesignWorld5(roomIndex);
+		}
+		else if(worldId == 6)
+		{
+			leveldesignWorld6(roomIndex);
+		}
+		else if(worldId == 7)
+		{
+			leveldesignWorld7(roomIndex);
+		}
+		else if(worldId == 8)
+		{
+			leveldesignWorld8(roomIndex);
+		}
+		else if(worldId == 9)
+		{
+			leveldesignWorld9(roomIndex);
+		}
+		else if(worldId == 10)
+		{
+			leveldesignWorld10(roomIndex);
+		}
+		else if(worldId == 11)
+		{
+			leveldesignWorld11(roomIndex);
+		}
+		else if(worldId == 12)
+		{
+			leveldesignWorld12(roomIndex);
+		}
+		else if(worldId == 13)
+		{
+			leveldesignWorld13(roomIndex);
+		}
+		else if(worldId == 14)
+		{
+			leveldesignWorld14(roomIndex);
+		}
+		else if(worldId == 15)
+		{
+			leveldesignWorld15(roomIndex);
+		}
+		else
+		{
+			leveldesignWorld16(roomIndex);
 		}
 	}
 	

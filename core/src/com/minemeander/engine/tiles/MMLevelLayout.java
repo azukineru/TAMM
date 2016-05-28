@@ -266,25 +266,6 @@ public class MMLevelLayout implements Iterable<Room>{
 		return false;
 	}
 	
-	public static void repairDirection(Direction lastDirection)
-	{
-		Direction tempsaveLastDirection = lastDirection;
-		String repairDirection;
-		
-		// pop		
-		lastoDirections.pop();
-		repairDirection = lastoDirections.arrayTop();
-		
-		//push back again
-		lastoDirections.push(tempsaveLastDirection.toString());
-		
-		//Convert string to enum
-		Direction newRepairDirection = Direction.valueOf(repairDirection);
-		
-		directions[cursorX][cursorY] = new Orientation(newRepairDirection, tempsaveLastDirection);
-		
-	}
-	
 	public static void searchingPath2(int nbRooms, int cursorX, int cursorY, Direction lastDirection){
 		
 		System.out.printf("\nTop Remaining rooms= %d\n", nbRooms);
@@ -319,7 +300,7 @@ public class MMLevelLayout implements Iterable<Room>{
 			System.out.printf("PossibleDirection.WEST is not available.");
 			possibleDirections.remove(Direction.WEST);
 		}
-		if(cursorY == 36 || directions[cursorX][cursorY+1] != null){
+		if(cursorY == 35 || directions[cursorX][cursorY+1] != null){
 			System.out.printf("PossibleDirection.NORTH is not available.");
 			possibleDirections.remove(Direction.NORTH);
 		}
@@ -327,7 +308,7 @@ public class MMLevelLayout implements Iterable<Room>{
 			System.out.printf("PossibleDirection.SOUTH is not available.");
 			possibleDirections.remove(Direction.SOUTH);
 		}
-		if(cursorX == 36 || directions[cursorX+1][cursorY] != null){
+		if(cursorX == 35 || directions[cursorX+1][cursorY] != null){
 			System.out.printf("PossibleDirection.EAST is not available.");
 			possibleDirections.remove(Direction.EAST);
 		}
@@ -454,8 +435,6 @@ public class MMLevelLayout implements Iterable<Room>{
 		return;
 	}
 	
-	
-	
 	public static MMLevelLayout random(int nbRooms) {
 		
 		//1. Random path search
@@ -541,19 +520,31 @@ public class MMLevelLayout implements Iterable<Room>{
 					boolean bottomWall = true;
 					boolean leftWall = true;
 					boolean rightWall = true;
-					boolean ground = false;					
+					boolean ground = false;
+					
 					if (orientation.current == Direction.NORTH || orientation.previous == Direction.SOUTH) {
-						topWall = false;						
+						//System.out.printf("Top\n");						
+						topWall = false;
 					}
 					if (orientation.current == Direction.SOUTH || orientation.previous == Direction.NORTH) {
+						//System.out.printf("Bot\n");
 						bottomWall = false;
 						ground = false;
 					}
 					if (orientation.current == Direction.EAST || orientation.previous == Direction.WEST) {
+						//System.out.printf("Right\n");
 						rightWall = false;
 					}
 					if (orientation.current == Direction.WEST || orientation.previous == Direction.EAST) {
+						//System.out.printf("Left\n");
 						leftWall = false;
+					}
+					if( x == (cursorX-bbBottomX) && y == (cursorY-bbBottomY))
+					{
+						if(orientation.current == Direction.NORTH) topWall = true;
+						else if(orientation.current == Direction.SOUTH) bottomWall = true;
+						else if(orientation.current == Direction.EAST) rightWall = true;
+						else leftWall = true;
 					}
 					mmLevelLayout.addRoom(x, y, topWall, bottomWall, leftWall, rightWall, ground, orientation);
 				}

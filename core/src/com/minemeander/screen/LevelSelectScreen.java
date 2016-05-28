@@ -46,7 +46,7 @@ public class LevelSelectScreen extends AbstractScreen {
 		skin.add("default", textButtonStyle);
 		Table table = new Table();
 		table.padTop(100);
-		table.padLeft(-600);
+		table.padLeft(-500);
 		table.setFillParent(true);
 		stage.addActor(table);
 	
@@ -66,7 +66,7 @@ public class LevelSelectScreen extends AbstractScreen {
 				fadeOut();
 			}
 		});
-		table.add(button).pad(20);		
+		table.add(button).pad(20).padLeft(120);		
 		table.row();
 		
 		TextButton button2 = new TextButton("LEVEL 2", skin);
@@ -83,7 +83,7 @@ public class LevelSelectScreen extends AbstractScreen {
 				fadeOut();
 			}
 		});
-		table.add(button2).pad(20);		
+		table.add(button2).pad(20).padLeft(120);		
 		table.row();
 		
 		TextButton button3 = new TextButton("LEVEL 3", skin);
@@ -100,7 +100,7 @@ public class LevelSelectScreen extends AbstractScreen {
 				fadeOut();
 			}
 		});
-		table.add(button3).pad(20);		
+		table.add(button3).pad(20).padLeft(120);		
 		table.row();
 		
 		TextButton button4 = new TextButton("LEVEL 4", skin);
@@ -117,7 +117,7 @@ public class LevelSelectScreen extends AbstractScreen {
 				fadeOut();
 			}
 		});
-		table.add(button4).pad(20);		
+		table.add(button4).pad(20).padLeft(120);		
 		table.row();
 		
 		TextButton button5 = new TextButton("LEVEL 5", skin);
@@ -134,18 +134,28 @@ public class LevelSelectScreen extends AbstractScreen {
 				fadeOut();
 			}
 		});
-		table.add(button5).pad(20);		
+		table.add(button5).pad(20).padLeft(120);		
 		table.row();
 		
-		TextButton button6 = new TextButton("BACK", skin);
-		button6.addListener(new ChangeListener() {			
+		TextButton button6 = new TextButton("NEXT WORLD", skin);
+		button6.addListener(new ChangeListener(){
+			@Override
+			public void changed(ChangeEvent event, Actor actor){
+				LevelSelectScreen.this.transitionTo(new LevelSelectScreen2());			
+			}
+		});
+		table.add(button6).pad(20).padLeft(1100);		
+		table.row();
+		
+		TextButton button7 = new TextButton("BACK", skin);
+		button7.addListener(new ChangeListener() {			
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				LevelSelectScreen.this.transitionTo(new MainMenu());
 			}
 		});
 		
-		table.add(button6).pad(20);
+		table.add(button7).padLeft(580);
 		
 		table.layout();
 
@@ -168,7 +178,6 @@ public class LevelSelectScreen extends AbstractScreen {
 		Jack.life = 3;
 		System.out.printf("Select Level %d\n", selectlevel);
 		LevelSelectScreen.this.transitionTo(new LevelScreen(selectlevel));
-
 	}
 	
 	

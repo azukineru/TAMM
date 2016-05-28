@@ -2,40 +2,78 @@ package com.minemeander.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.minemeander.Constant;
+import com.minemeander.Controller;
 import com.minemeander.Level;
 import com.minemeander.objects.Jack;
 
 public class LevelScreen extends AbstractScreen{
 	
 	private Level level;
-	private SpriteBatch spriteBatch = new SpriteBatch();
+	public static SpriteBatch spriteBatch = new SpriteBatch();
 	private long lastKeyTime = System.currentTimeMillis();
 	private float timer = 0f;	
 	private Box2DDebugRenderer box2dDebugRenderer;
-	private boolean pause;
+	private boolean pause;	
+	public static final float PPM = 100;
+	
+	OrthographicCamera camera;
+	Viewport viewport;
+	public static Controller controller;	
+	Jack jack;
 	
 	public LevelScreen(int worldId) {
-		level = new Level(this, worldId);	
+		level = new Level(this, worldId);		
+		viewport = new FitViewport(900/PPM, 600/PPM, camera);
+		controller = new Controller();
 		fadeIn();
+	}
+		
+	public void handleInput(){
+		if(controller.isRightPressed()){
+			//System.out.printf("Pressed Right Button\n");
+			//jack.getRightThrust();
+		}
+		else if(controller.isLeftPressed()){
+			//System.out.printf("Pressed Left Button\n");
+			//jack.getLeftThrust();
+		}
+		if(controller.isUpPressed()){
+			//System.out.printf("Pressed Up Button\n");
+			//jack.getRightThrust();
+		}
+		else if(controller.isDownPressed()){
+			//System.out.printf("Pressed Down Button\n");
+			//jack.getLeftThrust();
+		}
+	}
+	
+	public void update(float dt){
+		handleInput();
+		//camera.update();
 	}
 	
 	public void reset(){
 		fadeOut();
 	}
+
 	
 	@Override
 	protected void onFadeOutTermination() {
 		level.objectManager.reset();
 		level.camera.focusOnJack(level.objectManager.getJack());
+		controller = new Controller();
 		fadeIn();
 	}
 	
 	@Override
 	public void render(float delta) {
+		update(Gdx.graphics.getDeltaTime());
 		if (Gdx.input.isKeyPressed(Input.Keys.F1) && (System.currentTimeMillis()-lastKeyTime)>100) {
 			level.debugMode = !level.debugMode;			
 			lastKeyTime=System.currentTimeMillis();
@@ -61,6 +99,9 @@ public class LevelScreen extends AbstractScreen{
 		
 		// Render HUD		
 		level.hud.draw(level, spriteBatch, timer);
+		
+		// Render Controller
+		controller.draw();
 		
 		// Display info
 		if (level.debugMode) {			
